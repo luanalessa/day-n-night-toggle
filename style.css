@@ -1,51 +1,133 @@
-body {
-    background-color: #2a3866;
+:root {
+    --main-element-height: 180px;
+    --main-element-width: 410px;
+    --night-sky: url(assets/night-sky.svg);
+    --day-sky: url(assets/day-sky.svg);
+    --moon: url(assets/moon.svg);
+    --sun: url(assets/sun.svg);
+    --purple-wave: url(assets/purple-wave.svg);
+    --brown-wave: url(assets/brown-wave.svg);
+    --background-day: #dc6c6c;
+    --background-night: #5f179ac7;
 }
 
+
+/* Body of the page */
+
+body {
+    background: var(--background-night);
+    transition: background-color 2s ease;
+}
+
+.day {
+    background-color: var(--background-day);
+}
+
+
+/* Toggle container */
+
 #toggle {
-    background-image: url(assets/night-bg.svg);
-    width: 350px;
-    height: 150px;
+    background-image: var(--night-sky);
+    background-size: cover;
+    width: var(--main-element-width);
+    height: var(--main-element-height);
     padding: 10px;
     margin: 100px auto;
     border-radius: 100px;
     transition: background-image 2s ease;
     box-shadow: 1px 2px 20px 0px rgb(14 3 38);
-}
-
-#button {
-    background-image: url(assets/moon.svg);
-    background-position: center;
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    position: relative;
-    cursor: pointer;
-    box-shadow: 0 0 26px rgb(160 184 233 / 46%);
-    transition: background-image 2s ease;
-    /* Adicionado */
-}
-
-#toggle.is-clicked #button {
-    background-image: url(assets/sun.svg);
-    box-shadow: 0 0 26px rgba(233, 217, 160, 0.46);
-    animation: roll-right 2s linear forwards;
+    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 #toggle.is-clicked {
-    background-image: url(assets/day-bg.svg);
+    background-image: var(--day-sky);
+}
+
+#toggle.is-reversed {
+    background-image: url(assets/night-sky.svg);
+}
+
+
+/* Toggle button */
+
+#button {
+    background-image: var(--moon);
+    background-size: cover;
+    width: var(--main-element-height);
+    height: var(--main-element-height);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-image 2s ease;
+    position: relative;
+    z-index: 3;
+}
+
+#toggle.is-clicked #button {
+    background-image: var(--sun);
+    background-size: cover;
+    box-shadow: -4px 2px 33px rgb(233 217 160 / 74%);
+    animation: roll-right 2s linear forwards;
 }
 
 #toggle.is-reversed #button {
-    background-image: url(assets/moon.svg);
-    background-position: center;
+    background-image: var(--moon);
+    background-size: cover;
     box-shadow: 0 0 26px rgb(160 184 233 / 46%);
     animation: roll-left 2s linear forwards;
 }
 
-#toggle.is-reversed {
-    background-image: url(assets/night-bg.svg);
+
+/* Ocean */
+
+#ocean {
+    margin-top: 92px;
+    width: var(--main-element-width);
+    height: var(--main-element-height);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    flex-direction: column-reverse;
+    position: relative;
+    bottom: var(--main-element-height);
 }
+
+
+/* Waves */
+
+.wave {
+    background-image: var(--purple-wave);
+    background-repeat: repeat-x;
+    background-position: 0%;
+    background-size: 150px auto;
+    background-position: bottom;
+    position: relative;
+    width: 100%;
+    height: 100px;
+    animation: wave 15s cubic-bezier(0.36, 0.45, 0.63, 0.53) infinite;
+    z-index: 1;
+}
+
+.wave:nth-of-type(2) {
+    opacity: 0.6;
+    margin-bottom: -100px;
+    animation: swell 10s ease -1.25s infinite, wave 8s cubic-bezier(0.36, 0.45, 0.63, 0.53) -.125s infinite;
+    z-index: 0;
+}
+
+#toggle.is-clicked .wave {
+    background-image: var(--brown-wave);
+    transition: background-image 1s ease;
+}
+
+#toggle.is-reversed .wave {
+    background-image: url(assets/purple-wave.svg);
+    transition: background-image 1s ease;
+}
+
+
+/* Animation for rolling  */
 
 @keyframes roll-right {
     0% {
@@ -53,18 +135,43 @@ body {
         transform: rotate(0deg);
     }
     100% {
-        left: calc(100% - 150px);
+        left: calc(100% - var(--main-element-height));
         transform: rotate(360deg);
     }
 }
 
 @keyframes roll-left {
     0% {
-        left: calc(100% - 150px);
+        left: calc(100% - var(--main-element-height));
         transform: rotate(360deg);
     }
     100% {
         left: 0;
         transform: rotate(0deg);
+    }
+}
+
+
+/* Animation for the wave */
+
+@keyframes wave {
+    0% {
+        background-position-x: 0%;
+    }
+    100% {
+        background-position-x: -500px;
+    }
+}
+
+
+/* Animation for the swell */
+
+@keyframes swell {
+    0%,
+    100% {
+        background-position: right bottom 20px;
+    }
+    50% {
+        background-position: right bottom 0;
     }
 }

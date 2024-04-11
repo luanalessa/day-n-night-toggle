@@ -11,6 +11,10 @@
 <body>
     <div id="toggle">
         <div id="button"></div>
+        <div id="ocean">
+            <div class="wave"></div>
+            <div class="wave"></div>
+        </div>
     </div>
 </body>
 <script>
@@ -18,8 +22,10 @@
         var isClicked = this.classList.toggle("is-clicked");
 
         if (isClicked) {
+            document.body.classList.add("day")
             this.classList.remove("is-reversed");
         } else {
+            document.body.classList.remove("day")
             this.classList.add("is-reversed");
         }
     });
