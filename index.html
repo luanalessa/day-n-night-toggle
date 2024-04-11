@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Day/Night Toggle</title>
+</head>
+
+<body>
+    <div id="toggle">
+        <div id="button"></div>
+    </div>
+</body>
+<script>
+    document.getElementById("toggle").addEventListener("click", function() {
+        var isClicked = this.classList.toggle("is-clicked");
+
+        if (isClicked) {
+            this.classList.remove("is-reversed");
+        } else {
+            this.classList.add("is-reversed");
+        }
+    });
+</script>
+
+</html>

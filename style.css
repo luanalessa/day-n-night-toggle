@@ -1,0 +1,70 @@
+body {
+    background-color: #2a3866;
+}
+
+#toggle {
+    background-image: url(assets/night-bg.svg);
+    width: 350px;
+    height: 150px;
+    padding: 10px;
+    margin: 100px auto;
+    border-radius: 100px;
+    transition: background-image 2s ease;
+    box-shadow: 1px 2px 20px 0px rgb(14 3 38);
+}
+
+#button {
+    background-image: url(assets/moon.svg);
+    background-position: center;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    position: relative;
+    cursor: pointer;
+    box-shadow: 0 0 26px rgb(160 184 233 / 46%);
+    transition: background-image 2s ease;
+    /* Adicionado */
+}
+
+#toggle.is-clicked #button {
+    background-image: url(assets/sun.svg);
+    box-shadow: 0 0 26px rgba(233, 217, 160, 0.46);
+    animation: roll-right 2s linear forwards;
+}
+
+#toggle.is-clicked {
+    background-image: url(assets/day-bg.svg);
+}
+
+#toggle.is-reversed #button {
+    background-image: url(assets/moon.svg);
+    background-position: center;
+    box-shadow: 0 0 26px rgb(160 184 233 / 46%);
+    animation: roll-left 2s linear forwards;
+}
+
+#toggle.is-reversed {
+    background-image: url(assets/night-bg.svg);
+}
+
+@keyframes roll-right {
+    0% {
+        left: 0;
+        transform: rotate(0deg);
+    }
+    100% {
+        left: calc(100% - 150px);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes roll-left {
+    0% {
+        left: calc(100% - 150px);
+        transform: rotate(360deg);
+    }
+    100% {
+        left: 0;
+        transform: rotate(0deg);
+    }
+}
